@@ -10,4 +10,16 @@
     display: none;
 }
 
+ul,
+li {
+    list-style: none;
+}
+
+.green {
+    color: #008000;
+}
+
+.red {
+    color: #ff0000;
+}
 
