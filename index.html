@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stocks & Options</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
@@ -21,7 +22,9 @@
 
             <h2>Enter a company's symbol to search</h2>
             <form autocomplete="off">
-                <div class="autocomplete"></div>
+                <div class="autocomplete">
+                    <ul class="autocompleteList"></ul>
+                </div>
                 <input type="text" name="company" id="company" required>
                 <input type="submit" value="Submit" class="submitBtn js-submitBtn">
             </form>
@@ -40,6 +43,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 </html>

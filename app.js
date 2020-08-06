@@ -1,5 +1,12 @@
 // STOCKS & OPTIONS
+'use strict';
+
+// stocks api
 const apiKeyStocks = 'JKU1DI2LG0JQH6O2';
+
+//
+//  HOME PAGE
+//
 
 // function to format numbers with commas and currency
 function formatNumber(num) {
@@ -189,7 +196,7 @@ function getNews(company){
     //   .catch(error => console.log('error', error));
 };
 
-// function to watchForm
+// function to watchForm 
 function watchForm(){
     console.log('app running...');
     $('form').on('click', '.js-submitBtn', function(event){
@@ -200,6 +207,55 @@ function watchForm(){
         // getNews(symbol);
     });
 };
+
+// function to create Company Match String
+function createCompMatchString(companyMatchesArr){
+    
+};
+
+// function to display matching companies
+function displayMatchingCompanies(responseJson){
+    console.log('display running');
+    // clear previous results
+    $('.autocompleteList').empty();
+    // loop through response and create html string
+    for(let i = 0; i < responseJson.bestMatches.length; i++){
+        $('.autocompleteList').append(`
+        <li>${responseJson.bestMatches[i]['2. name']} (${responseJson.bestMatches[i]['1. symbol']})</li>`);
+    };
+    // call function to create html string
+    
+    // insert string into autocomplete
+    
+};
+
+// function to search companies from user input data
+function searchCompanies(userInput){
+    console.log('search running');
+    let url = '';
+    let hostURL = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
+    url = hostURL + userInput + '&apikey=' + apiKeyStocks;
+    fetch(url)
+        .then(response => response.json())
+        .then(responseJson => displayMatchingCompanies(responseJson))
+        .catch(error => alert('error finding match'));
+};
+
+// function to watchInput field to find company and symbol
+function watchInput(){
+    let userInput = '';
+    // save user input and call function to search for companies
+    $('#company').on('input', function(event){
+        console.log('yeah working!');
+        userInput = $('#company').val();
+        console.log(userInput);
+        searchCompanies(userInput);
+    });
+};
+
+//
+//  INVESTING EDUCATION PAGE
+//
 
 // function to displayVideos
 function displayVideos(responseJson){
@@ -253,5 +309,6 @@ function watchEduForm(){
     });
 };
 
+$(watchInput());
 $(watchForm());
 $(watchEduForm());
