@@ -10,7 +10,7 @@ const apiKeyStocks = 'JKU1DI2LG0JQH6O2';
 
 // function to format numbers with commas and currency
 function formatNumber(num) {
-    return '$' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return '$' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 };
 
 // function to determinePriceColor
@@ -66,8 +66,16 @@ function getQuote(symbol){
 
     fetch(url)
         .then(response => response.json())
-        .then(responseJson => displayQuote(responseJson));
-        // .catch(error => alert(`Error Message: ${error.message}`));
+        // .then(response => {
+        //     console.log(response);
+        //     if(response.status == 'ok'){
+        //         return response;
+        //     } else {
+        //         throw 'Error with response (in getQuote function)';
+        //     }
+        // })
+        .then(responseJson => displayQuote(responseJson))
+        .catch(error => alert(`Error Message2: ${error.message}`));
 };
 
 // function to getFinancialResults
@@ -91,6 +99,9 @@ function displayCompany(responseJson){
     let company200DMA = responseJson['200DayMovingAverage'];
     let companyTargetPrice = responseJson.AnalystTargetPrice;
     
+    // fill input box with selected company name
+    $('#company').val(companyName);
+    // return full string
     finalCompString = `
         <h3>Company: ${companyName}</h3>
         <h3>Symbol: ${companySymbol}</h3>
@@ -134,14 +145,25 @@ function displayCompany(responseJson){
 // function to getFinancials
 function getCompany(symbol){
     let hostURL = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=';
-    // https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
     let url = '';
     url = hostURL + symbol +'&apikey=' + apiKeyStocks;
 
+    // fetch(url)
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log(response);
+    //         if(response.status == 'ok'){
+    //             return response;
+    //         } else {
+    //             throw 'Error with response (in getQuote function)';
+    //         }
+    //     })
+    //     .then(responseJson => displayQuote(responseJson))
+    //     .catch(error => alert(`Error Message2: ${error.message}`));
     fetch(url)
         .then(response => response.json())
-        .then(responseJson => displayCompany(responseJson));
-        // .catch(error => alert(`Error Message: ${error.message}`));
+        .then(responseJson => displayCompany(responseJson))
+        .catch(error => alert(`Error Message3: ${error.message}`));
 };
 
 // function to displayNews
@@ -149,21 +171,18 @@ function displayNews(responseJson){
     console.log(responseJson.totalCount);
     $('#newsList').empty();
     for(let i = 0; i < responseJson.value.length || i === 24; i++){
-        // let articlePic = '';
-        // let imageURL = `${responseJson.value[i].image.url}`;
-        // console.log(imageURL);
-        // let placeholderPic = 'temp-placeholder.png';
-        // if(imageURL == null || imageURL == '' || typeof imageURL === 'undefined'){
-        //     articlePic = placeholderPic;
-        // } else {
-        //     articlePic = imageURL;
-        // };
         let title = responseJson.value[i].title;
         let url = responseJson.value[i].url;
         let description = responseJson.value[i].description;
-        console.log(title);
+        let newsImage = '';
+        if(responseJson.value[i].image.thumbnail){
+            newsImage = responseJson.value[i].image.thumbnail;
+        } else {
+            newsImage = 'temp-placeholder.png';
+        };
+        console.log(newsImage);
         $('#newsList').append(
-            '<li><img src="temp-placeholder.png" alt="placeholder"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a><p>'+ description +'</p></li>');
+            '<li><img src="'+ newsImage +'" alt="placeholder"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a><p>'+ description +'</p></li>');
     };
 
     $('.newsBox').removeClass('hidden');
@@ -185,15 +204,75 @@ function getNews(company){
     redirect: 'follow'
     };
 
-    // 
-    //  NEED TO CHANGE SYMBOL TO COMPANY NAME
-    //
     url = hostURL + company + '&safeSearch=false';
 
+    // fetch(url)
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log(response);
+    //         if(response.status == 'ok'){
+    //             return response;
+    //         } else {
+    //             throw 'Error with response (in getQuote function)';
+    //         }
+    //     })
+    //     .then(responseJson => displayQuote(responseJson))
+    //     .catch(error => alert(`Error Message2: ${error.message}`));
     fetch(url, requestOptions)
         .then(response => response.json())
         .then(responseJson => displayNews(responseJson));
     //   .catch(error => console.log('error', error));
+};
+
+// function to listen for which matching company was selected
+function selectedCompany(){
+    $('.autocompleteList').on('click', '.companyMatchLI', function(event){
+        event.preventDefault();
+        let selectedCompany = $(this).closest('li').data('value');
+        getCompany(selectedCompany);
+        getQuote(selectedCompany);
+        // clear autocompleteList
+        $('.autocompleteList').empty();
+        // hide header and autocompleteDiv
+        $('#autocompleteHeader').addClass('hidden');
+        $('#autocompleteDiv').addClass('hidden');
+    });
+};
+
+// function to display matching companies
+function displayMatchingCompanies(responseJson){
+    console.log('displayMatchingCompanies running');
+    // clear previous results
+    $('.autocompleteList').empty();
+    // unhide header and autocompleteDiv
+    $('#autocompleteHeader').removeClass('hidden');
+    $('#autocompleteDiv').removeClass('hidden');
+    // loop through response and create html string
+    for(let i = 0; i < responseJson.bestMatches.length; i++){
+        $('.autocompleteList').append(`
+        <li class="companyMatchLI" data-value="${responseJson.bestMatches[i]['1. symbol']}"><a href="#">${responseJson.bestMatches[i]['2. name']} (${responseJson.bestMatches[i]['1. symbol']})</a></li>`);
+    };
+};
+
+// function to search companies from user input data
+function searchCompanies(company){
+    console.log('searchCompanies running');
+    let url = '';
+    let hostURL = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
+    url = hostURL + company + '&apikey=' + apiKeyStocks;
+
+    fetch(url)
+        .then(response => response.json())
+        // .then(response => {
+        //     console.log(response);
+        //     if(response.status == 'ok'){
+        //         return response;
+        //     } else {
+        //         throw 'Error with response (in Search Companies function)'
+        //     }
+        // })
+        .then(responseJson => displayMatchingCompanies(responseJson))
+        .catch(error => alert(`Error Message1: ${error.message}`));
 };
 
 // function to watchForm 
@@ -201,55 +280,9 @@ function watchForm(){
     console.log('app running...');
     $('form').on('click', '.js-submitBtn', function(event){
         event.preventDefault();
-        let symbol = $('#company').val();
-        getCompany(symbol);
-        getQuote(symbol);
-        // getNews(symbol);
-    });
-};
-
-// function to create Company Match String
-function createCompMatchString(companyMatchesArr){
-    
-};
-
-// function to display matching companies
-function displayMatchingCompanies(responseJson){
-    console.log('display running');
-    // clear previous results
-    $('.autocompleteList').empty();
-    // loop through response and create html string
-    for(let i = 0; i < responseJson.bestMatches.length; i++){
-        $('.autocompleteList').append(`
-        <li>${responseJson.bestMatches[i]['2. name']} (${responseJson.bestMatches[i]['1. symbol']})</li>`);
-    };
-    // call function to create html string
-    
-    // insert string into autocomplete
-    
-};
-
-// function to search companies from user input data
-function searchCompanies(userInput){
-    console.log('search running');
-    let url = '';
-    let hostURL = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
-    url = hostURL + userInput + '&apikey=' + apiKeyStocks;
-    fetch(url)
-        .then(response => response.json())
-        .then(responseJson => displayMatchingCompanies(responseJson))
-        .catch(error => alert('error finding match'));
-};
-
-// function to watchInput field to find company and symbol
-function watchInput(){
-    let userInput = '';
-    // save user input and call function to search for companies
-    $('#company').on('input', function(event){
-        console.log('yeah working!');
-        userInput = $('#company').val();
-        console.log(userInput);
-        searchCompanies(userInput);
+        let company = $('#company').val();
+        console.log(company);
+        searchCompanies(company);        
     });
 };
 
@@ -289,7 +322,19 @@ function getVideos(securityToSearch, educationLevel, maxResults=20){
       };
       const queryString = formatQueryParams(params)
       const url = searchYTURL + '?' + queryString;
-      
+
+    //   fetch(url)
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log(response);
+    //         if(response.status == 'ok'){
+    //             return response;
+    //         } else {
+    //             throw 'Error with response (in getQuote function)';
+    //         }
+    //     })
+    //     .then(responseJson => displayQuote(responseJson))
+    //     .catch(error => alert(`Error Message2: ${error.message}`));
     fetch(url)
       .then(response => response.json())
       .then(responseJson => displayVideos(responseJson));
@@ -309,6 +354,6 @@ function watchEduForm(){
     });
 };
 
-$(watchInput());
+$(selectedCompany());
 $(watchForm());
 $(watchEduForm());

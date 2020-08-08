@@ -18,15 +18,17 @@
     </header>
     <main>
         <div class="container">
-            <h1>Stock & Options</h1>
+            <h1>Stock Analysis</h1>
 
-            <h2>Enter a company's symbol to search</h2>
+            <h2>Enter a company or symbol to search</h2>
             <form autocomplete="off">
-                <div class="autocomplete">
-                    <ul class="autocompleteList"></ul>
-                </div>
                 <input type="text" name="company" id="company" required>
                 <input type="submit" value="Submit" class="submitBtn js-submitBtn">
+
+                <h4 id="autocompleteHeader" class="hidden">Select a Company:</h4>
+                <div id="autocompleteDiv" class="autocomplete hidden">
+                    <ul class="autocompleteList"></ul>
+                </div>
             </form>
 
             <section>

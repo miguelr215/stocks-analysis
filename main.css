@@ -17,12 +17,12 @@ li {
 }
 
 #company,
-.autocomplete {
+#autocompleteDiv {
     width: 300px;
     padding: 2px;
 }
 
-.autocomplete {
+#autocompleteDiv {
     display: inline-block;
     position: relative;
 }
