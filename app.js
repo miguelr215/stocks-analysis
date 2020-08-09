@@ -43,14 +43,11 @@ function displayQuote(responseJson){
     let priceChange = responseJson['Global Quote']['09. change'];
     let priceChangePercent = responseJson['Global Quote']['10. change percent'];
 
-    console.log(price);
-    console.log(typeof price);
     let finalString = `
-    <h3 class="`+ determinePriceColor(priceChange) +`">Current Price:  $`+price+`</h3>
     <div class="priceItems">
-        <h4 class="`+ determinePrevPriceColor(previousPrice, price) +`">Previous Price:  $`+previousPrice+` on `+ lastTradingDay +`</h4>
-        <h4 class="`+ determinePriceColor(priceChange) +`">Price Change ($):  `+ priceChange +`</h4>
-        <h4 class="`+ determinePriceColor(priceChangePercent) +`">(`+ priceChangePercent +` change)</h4>
+    <h3 class="`+ determinePriceColor(priceChange) +`">Current Price:  $`+price+`</h3>
+    <h5 class="`+ determinePrevPriceColor(previousPrice, price) +`">Previous Price:  $`+previousPrice+` on `+ lastTradingDay +`</h5>
+    <h5 class="`+ determinePriceColor(priceChange) +`">Price Change ($):  `+ priceChange +`  (`+ priceChangePercent +` change)</h5>
     </div>
     `;
     $('.quoteBox').html(finalString);
@@ -81,6 +78,7 @@ function getQuote(symbol){
 // function to getFinancialResults
 function displayCompany(responseJson){
     $('.resultsBox').empty();
+    let headerString = '';
     let finalCompString = '';
     let companyName = responseJson.Name;
     let companySymbol = responseJson.Symbol;
@@ -101,13 +99,15 @@ function displayCompany(responseJson){
     
     // fill input box with selected company name
     $('#company').val(companyName);
+    // return headerString
+    headerString = `
+        <h3>Company: ${companyName}</h3>
+        <h3>Symbol: ${companySymbol}</h3>`;
     // return full string
     finalCompString = `
-        <h3>Company: ${companyName}</h3>
-        <h3>Symbol: ${companySymbol}</h3>
         <p><b>Sector:</b> ${companySector}</p>
         <p><b>Description:</b> ${companyDescription}</p>
-            <table>
+            <table class="stockTable">
                 <tr>
                     <td></td>
                     <td><b>Stock Information</b></td>
@@ -136,6 +136,7 @@ function displayCompany(responseJson){
             </table>
     `;
 
+    $('.resultsHeader').html(headerString);
     $('.resultsBox').html(finalCompString);
     $('.resultsBox').removeClass('hidden');
     $('.resultsHeader').removeClass('hidden');
@@ -236,6 +237,8 @@ function selectedCompany(){
         // hide header and autocompleteDiv
         $('#autocompleteHeader').addClass('hidden');
         $('#autocompleteDiv').addClass('hidden');
+        $('#autocompleteHeader').removeClass('auto-bg-color');
+        $('#autocompleteDiv').removeClass('auto-bg-color');
     });
 };
 
@@ -243,10 +246,15 @@ function selectedCompany(){
 function displayMatchingCompanies(responseJson){
     console.log('displayMatchingCompanies running');
     // clear previous results
+    $('#autocompleteHeader').empty();
     $('.autocompleteList').empty();
     // unhide header and autocompleteDiv
     $('#autocompleteHeader').removeClass('hidden');
     $('#autocompleteDiv').removeClass('hidden');
+    $('#autocompleteHeader').addClass('auto-bg-color');
+    $('#autocompleteDiv').addClass('auto-bg-color');
+    // insert autocompleteHeader string
+    $(' #autocompleteHeader').html('Select a Company:');
     // loop through response and create html string
     for(let i = 0; i < responseJson.bestMatches.length; i++){
         $('.autocompleteList').append(`
@@ -293,9 +301,10 @@ function watchForm(){
 // function to displayVideos
 function displayVideos(responseJson){
     $('.videoList').empty();
+    console.log(responseJson);
     for (let i = 0; i < responseJson.items.length; i++){
         $('.videoList').append(
-          `<li><img src='${responseJson.items[i].snippet.thumbnails.default.url}'><h3>${responseJson.items[i].snippet.title}</h3>
+          `<li class="videoItem"><img src="${responseJson.items[i].snippet.thumbnails.default.url}" width="200px"><a href="www.youtube.com/watch?v=${responseJson.items[i].id.videoId}" target="_blank"><h3>${responseJson.items[i].snippet.title}</h3></a>
           <p>${responseJson.items[i].snippet.description}</p>
           </li>`
         )};
@@ -335,6 +344,7 @@ function getVideos(securityToSearch, educationLevel, maxResults=20){
     //     })
     //     .then(responseJson => displayQuote(responseJson))
     //     .catch(error => alert(`Error Message2: ${error.message}`));
+    console.log(url);
     fetch(url)
       .then(response => response.json())
       .then(responseJson => displayVideos(responseJson));

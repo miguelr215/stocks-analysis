@@ -10,36 +10,43 @@
 <body>
     <header>
         <nav>
+            <h1>Stock Analysis</h1>
             <ul>
-                <li><a href="index.html">Company Search</a></li>
-                <li><a href="education.html">Investing Education</a></li>
+                <li><a href="index.html">Search</a></li>
+                <li><a href="education.html">Education</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="container">
-            <h1>Stock Analysis</h1>
+            <div class="hero">
+                <div class="heroTextbox">
+                    <h2>Enter a company or symbol</h2>
+                    <form autocomplete="off">
+                        <input type="text" name="company" id="company" required>
+                        <input type="submit" value="Submit" class="submitBtn js-submitBtn">
 
-            <h2>Enter a company or symbol to search</h2>
-            <form autocomplete="off">
-                <input type="text" name="company" id="company" required>
-                <input type="submit" value="Submit" class="submitBtn js-submitBtn">
-
-                <h4 id="autocompleteHeader" class="hidden">Select a Company:</h4>
-                <div id="autocompleteDiv" class="autocomplete hidden">
-                    <ul class="autocompleteList"></ul>
+                        <h4 id="autocompleteHeader" class="auto-bg-color hidden"></h4>
+                        <div id="autocompleteDiv" class="autocomplete auto-bg-color hidden">
+                            <ul class="autocompleteList"></ul>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
 
             <section>
-                <h3 class="resultsHeader hidden">Search Results: </h3>
-                <div class="quoteBox hidden"></div> <!--end of quoteBox-->
-                <div class="resultsBox hidden">
-                </div> <!--end of resultsBox-->
-                <div class="newsBox hidden">
-                    <ul id="newsList">
-                    </ul>
-                </div> <!--end of newsBox-->
+                <div class="quoteContainer">
+                    <div><h3 class="resultsHeader hidden"></h3></div>
+                    <div class="quoteBox hidden"></div> <!--end of quoteBox-->    
+                </div>
+                <div class="resultsBox hidden"></div> <!--end of resultsBox-->
+                <div class="newsContainer">
+                    <h3 class="resultsHeader hidden">Company News: </h3>
+                    <div class="newsBox hidden">
+                        <ul id="newsList">
+                        </ul>
+                    </div> <!--end of newsBox-->
+                </div>
             </section>
         </div> <!--end of container-->
     </main>
