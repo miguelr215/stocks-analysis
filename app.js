@@ -100,7 +100,7 @@ function displayCompany(responseJson){
     // fill input box with selected company name
     $('#company').val(companyName);
     // return headerString
-    headerString = `
+    headerString = `Company News for:
         <h3>Company: ${companyName}</h3>
         <h3>Symbol: ${companySymbol}</h3>`;
     // return full string
@@ -183,8 +183,9 @@ function displayNews(responseJson){
         };
         console.log(newsImage);
         $('#newsList').append(
-            '<li><img src="'+ newsImage +'" alt="placeholder"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a><p>'+ description +'</p></li>');
+            '<li class="newsItem"><img src="'+ newsImage +'" alt="placeholder" width="200px"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a><p>'+ description +'</p></li>');
     };
+
 
     $('.newsBox').removeClass('hidden');
 };

@@ -24,6 +24,10 @@ li {
     list-style: none;
 }
 
+.attribution {
+    font-size: 8px;
+}
+
 /******* NAV BAR *******/
 header nav {
     display: flex;
@@ -153,17 +157,18 @@ header nav ul li a:active {
 
 .stockTable {
     margin: 7px auto;
-    background-color: #e4e270;
+    background-color: #eeeda0;
     border-radius: 10px;
 }
 
 .stockTable tr {
     margin-bottom: 3px;
-    border-bottom: 1px solid gray;
 }
 
 .stockTable td {
     margin-right: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid gray;
 }
 
 /******* EDUCATION PAGE *******/
@@ -201,21 +206,24 @@ header nav ul li a:active {
     margin-left: 20px;
 }
 
-.videoList {
+.videoList,
+#newsList {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
 }
 
-.videoItem {
+.videoItem,
+.newsItem {
     width: 300px;
     flex: 1;
     margin: 10px auto;
     text-align: center;
 }
 
-.videoItem a {
+.videoItem a,
+.newsItem a {
     text-decoration: none;
 }
 
@@ -225,7 +233,8 @@ header nav ul li a:active {
 
 
     /******* EDUCATION PAGE *******/
-    .videoList {
+    .videoList,
+    #newsList {
         flex-direction: row;
     }
 }
