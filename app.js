@@ -294,7 +294,9 @@ function formatQueryParams(params) {
 
 // function to getVideos
 function getVideos(securityToSearch, educationLevel, maxResults=20){
-    const apiKeyYouTube = 'AIzaSyCINHocuz-1yn4g-Bx0xlyQ_gIgBYyBltQ'; 
+    const apiKeyYouTube = 'AIzaSyA_r1qBpoPFoPc9IH-nxydP7COTXf1rRzI'; 
+    // YouTube api key1 AIzaSyCINHocuz-1yn4g-Bx0xlyQ_gIgBYyBltQ
+    // YouTube api key2 AIzaSyA_r1qBpoPFoPc9IH-nxydP7COTXf1rRzI
     const searchYTURL = 'https://www.googleapis.com/youtube/v3/search';
     const params = {
         key: apiKeyYouTube,
@@ -303,11 +305,14 @@ function getVideos(securityToSearch, educationLevel, maxResults=20){
         maxResults,
         type: 'video'
       };
-      const queryString = formatQueryParams(params)
+      const queryString = formatQueryParams(params);
       const url = searchYTURL + '?' + queryString;
 
+    console.log(url);
     fetch(url)
+        
         .then(response => {
+            console.log(response)
             if(response.status === 200){
                 return response;
             } else {
