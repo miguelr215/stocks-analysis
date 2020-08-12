@@ -57,20 +57,18 @@ function displayQuote(responseJson){
 // function to getCompany
 function getQuote(symbol){
     let hostURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-    // 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=' + apiKey;
     let url = '';
     url = hostURL + symbol + '&apikey=' + apiKeyStocks;
 
     fetch(url)
+        .then(response => {
+            if(response.status === 200){
+                return response;
+            } else {
+                throw 'Error with response (in getQuote function)';
+            }
+        })
         .then(response => response.json())
-        // .then(response => {
-        //     console.log(response);
-        //     if(response.status == 'ok'){
-        //         return response;
-        //     } else {
-        //         throw 'Error with response (in getQuote function)';
-        //     }
-        // })
         .then(responseJson => displayQuote(responseJson))
         .catch(error => alert(`Error Message2: ${error.message}`));
 };
@@ -97,20 +95,19 @@ function displayCompany(responseJson){
     let company200DMA = responseJson['200DayMovingAverage'];
     let companyTargetPrice = responseJson.AnalystTargetPrice;
     
-    // fill input box with selected company name
     $('#company').val(companyName);
-    // return headerString
-    headerString = `Company News for:
+    
+    headerString = `Results:
         <h3>Company: ${companyName}</h3>
         <h3>Symbol: ${companySymbol}</h3>`;
-    // return full string
+    
     finalCompString = `
-        <p><b>Sector:</b> ${companySector}</p>
-        <p><b>Description:</b> ${companyDescription}</p>
+        <div class="companyInfo"><p><b><u>Sector:</u></b> ${companySector}</p>
+        <p><b><u>Description:</u></b> ${companyDescription}</p></div>
             <table class="stockTable">
                 <tr>
                     <td></td>
-                    <td><b>Stock Information</b></td>
+                    <td><b>${companyName} Stock Information</b></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -149,19 +146,14 @@ function getCompany(symbol){
     let url = '';
     url = hostURL + symbol +'&apikey=' + apiKeyStocks;
 
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         console.log(response);
-    //         if(response.status == 'ok'){
-    //             return response;
-    //         } else {
-    //             throw 'Error with response (in getQuote function)';
-    //         }
-    //     })
-    //     .then(responseJson => displayQuote(responseJson))
-    //     .catch(error => alert(`Error Message2: ${error.message}`));
     fetch(url)
+        .then(response => {
+            if(response.status === 200){
+                return response;
+            } else {
+                throw 'Error with response (in getQuote function)';
+            }
+        })
         .then(response => response.json())
         .then(responseJson => displayCompany(responseJson))
         .catch(error => alert(`Error Message3: ${error.message}`));
@@ -169,32 +161,27 @@ function getCompany(symbol){
 
 // function to displayNews
 function displayNews(responseJson){
-    console.log(responseJson.totalCount);
     $('#newsList').empty();
     for(let i = 0; i < responseJson.value.length || i === 24; i++){
         let title = responseJson.value[i].title;
         let url = responseJson.value[i].url;
-        let description = responseJson.value[i].description;
         let newsImage = '';
+
         if(responseJson.value[i].image.thumbnail){
             newsImage = responseJson.value[i].image.thumbnail;
         } else {
             newsImage = 'temp-placeholder.png';
         };
-        console.log(newsImage);
+        
         $('#newsList').append(
-            '<li class="newsItem"><img src="'+ newsImage +'" alt="placeholder" width="200px"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a><p>'+ description +'</p></li>');
+            '<li class="newsItem"><img src="'+ newsImage +'" alt="placeholder" width="200px"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a></li>');
     };
-
-
     $('.newsBox').removeClass('hidden');
 };
 
 // function to getNews
 function getNews(company){
-    console.log(company);
     let hostURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?autoCorrect=false&pageNumber=1&pageSize=25&q=';
-    // https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?autoCorrect=false&pageNumber=1&pageSize=25&q=ibm&safeSearch=false
     let url = '';
     let myHeaders = new Headers();
     myHeaders.append("x-rapidapi-host", "contextualwebsearch-websearch-v1.p.rapidapi.com");
@@ -208,22 +195,17 @@ function getNews(company){
 
     url = hostURL + company + '&safeSearch=false';
 
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         console.log(response);
-    //         if(response.status == 'ok'){
-    //             return response;
-    //         } else {
-    //             throw 'Error with response (in getQuote function)';
-    //         }
-    //     })
-    //     .then(responseJson => displayQuote(responseJson))
-    //     .catch(error => alert(`Error Message2: ${error.message}`));
     fetch(url, requestOptions)
+        .then(response => {
+            if(response.status === 200){
+                return response;
+            } else {
+                throw 'Error with response (in getQuote function)';
+            }
+        })
         .then(response => response.json())
-        .then(responseJson => displayNews(responseJson));
-    //   .catch(error => console.log('error', error));
+        .then(responseJson => displayNews(responseJson))
+        .catch(error => alert(`Error Message4: ${error.message}`));
 };
 
 // function to listen for which matching company was selected
@@ -233,9 +215,8 @@ function selectedCompany(){
         let selectedCompany = $(this).closest('li').data('value');
         getCompany(selectedCompany);
         getQuote(selectedCompany);
-        // clear autocompleteList
+        
         $('.autocompleteList').empty();
-        // hide header and autocompleteDiv
         $('#autocompleteHeader').addClass('hidden');
         $('#autocompleteDiv').addClass('hidden');
         $('#autocompleteHeader').removeClass('auto-bg-color');
@@ -245,18 +226,14 @@ function selectedCompany(){
 
 // function to display matching companies
 function displayMatchingCompanies(responseJson){
-    console.log('displayMatchingCompanies running');
-    // clear previous results
     $('#autocompleteHeader').empty();
     $('.autocompleteList').empty();
-    // unhide header and autocompleteDiv
     $('#autocompleteHeader').removeClass('hidden');
     $('#autocompleteDiv').removeClass('hidden');
     $('#autocompleteHeader').addClass('auto-bg-color');
     $('#autocompleteDiv').addClass('auto-bg-color');
-    // insert autocompleteHeader string
     $(' #autocompleteHeader').html('Select a Company:');
-    // loop through response and create html string
+    
     for(let i = 0; i < responseJson.bestMatches.length; i++){
         $('.autocompleteList').append(`
         <li class="companyMatchLI" data-value="${responseJson.bestMatches[i]['1. symbol']}"><a href="#">${responseJson.bestMatches[i]['2. name']} (${responseJson.bestMatches[i]['1. symbol']})</a></li>`);
@@ -265,32 +242,28 @@ function displayMatchingCompanies(responseJson){
 
 // function to search companies from user input data
 function searchCompanies(company){
-    console.log('searchCompanies running');
     let url = '';
     let hostURL = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
     url = hostURL + company + '&apikey=' + apiKeyStocks;
 
     fetch(url)
+        .then(response => {
+            if(response.status === 200){
+                return response;
+            } else {
+                throw 'Error with response (in getQuote function)';
+            }
+        })
         .then(response => response.json())
-        // .then(response => {
-        //     console.log(response);
-        //     if(response.status == 'ok'){
-        //         return response;
-        //     } else {
-        //         throw 'Error with response (in Search Companies function)'
-        //     }
-        // })
         .then(responseJson => displayMatchingCompanies(responseJson))
         .catch(error => alert(`Error Message1: ${error.message}`));
 };
 
 // function to watchForm 
 function watchForm(){
-    console.log('app running...');
     $('form').on('click', '.js-submitBtn', function(event){
         event.preventDefault();
         let company = $('#company').val();
-        console.log(company);
         searchCompanies(company);        
     });
 };
@@ -302,7 +275,7 @@ function watchForm(){
 // function to displayVideos
 function displayVideos(responseJson){
     $('.videoList').empty();
-    console.log(responseJson);
+    
     for (let i = 0; i < responseJson.items.length; i++){
         $('.videoList').append(
           `<li class="videoItem"><img src="${responseJson.items[i].snippet.thumbnails.default.url}" width="200px"><a href="www.youtube.com/watch?v=${responseJson.items[i].id.videoId}" target="_blank"><h3>${responseJson.items[i].snippet.title}</h3></a>
@@ -333,34 +306,25 @@ function getVideos(securityToSearch, educationLevel, maxResults=20){
       const queryString = formatQueryParams(params)
       const url = searchYTURL + '?' + queryString;
 
-    //   fetch(url)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         console.log(response);
-    //         if(response.status == 'ok'){
-    //             return response;
-    //         } else {
-    //             throw 'Error with response (in getQuote function)';
-    //         }
-    //     })
-    //     .then(responseJson => displayQuote(responseJson))
-    //     .catch(error => alert(`Error Message2: ${error.message}`));
-    console.log(url);
     fetch(url)
-      .then(response => response.json())
-      .then(responseJson => displayVideos(responseJson));
-    //   .catch(error => alert('error getting videos'));
+        .then(response => {
+            if(response.status === 200){
+                return response;
+            } else {
+                throw 'Error with response (in getQuote function)';
+            }
+        })
+        .then(response => response.json())
+        .then(responseJson => displayVideos(responseJson))
+        .catch(error => alert(`Error Message5: ${error.message}`));
 };
 
 // function to watchEduForm
 function watchEduForm(){
-    console.log('edu app running...');
     $('#eduForm').on('click', '.js-searchBtn', function(event){
         event.preventDefault();
         let securityToSearch = $('#security').val();
         let educationLevel = $('#educationLevel').val();
-        console.log(securityToSearch);
-        console.log(educationLevel);
         getVideos(securityToSearch, educationLevel, 20);
     });
 };

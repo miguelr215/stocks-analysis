@@ -1,12 +1,5 @@
 /******* STOCKS ANALYSIS *******/
 
-/*
-COLORS
-BLUE:  #121FE6
-ORANGE:  #E6941E
-MUSTARD:  #E6E407
-*/
-
 /******* BASE SETUP *******/
 * {
     box-sizing: border-box;
@@ -143,7 +136,7 @@ header nav ul li a:active {
 }
 
 .red {
-    color: #ff0000;
+    color: #bb0404;
 }
 
 .resultsBox {
@@ -159,16 +152,35 @@ header nav ul li a:active {
     margin: 7px auto;
     background-color: #eeeda0;
     border-radius: 10px;
+    padding: 10px;
+    font-size: 18px;
 }
 
 .stockTable tr {
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
 .stockTable td {
     margin-right: 10px;
     padding-right: 10px;
     border-bottom: 1px solid gray;
+}
+
+.companyInfo {
+    margin: 10px auto;
+    border-radius: 10px;
+    padding: 20px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(images/comp-info-box.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.companyInfo p {
+    margin-bottom: 5px;
 }
 
 /******* EDUCATION PAGE *******/
@@ -230,7 +242,6 @@ header nav ul li a:active {
 /******* MEDIA QUERIES *******/
 
 @media all and (min-width: 700px){
-
 
     /******* EDUCATION PAGE *******/
     .videoList,
