@@ -1,5 +1,10 @@
-# stocks-options
-<b>Summary:</b>  search news, stock &amp; options quotes on a specific company
+# Stocks Analysis
+<b>Summary:</b>  This application allows the user to search for news articles, business and stock information on a specific company.  Users can also search YouTube videos to learn how to trade stocks and options.
 
-Link to app:  https://miguelr215.github.io/stocks-options/
+<b>Link to app:</b>  https://miguelr215.github.io/stocks-options/
+
+<b>Tech Used:</b>  HTML, CSS, JavaScript, JQuery
+
+<b>Screenshots:</b>
+
 
