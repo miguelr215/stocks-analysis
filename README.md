@@ -1,7 +1,7 @@
 # Stocks Analysis
 **Summary:**  This application allows the user to search for news articles, business and stock information on a specific company.  Users can also search YouTube videos to learn how to trade stocks and options.
 
-**Link to app:**  https://miguelr215.github.io/stocks-options/
+**Link to app:**  https://miguelr215.github.io/stocks-analysis/
 
 **Tech Used:** 
 - HTML
@@ -12,4 +12,16 @@
 **Screenshots:**
 
 Homepage
+![image of stocks analysis homepage](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/homepage.PNG)
 
+Company information & stock quotes results
+![image of company and stock info](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company%20info.PNG)
+
+Company news articles results
+![image of company news articles](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company%20news.png)
+
+Education page
+![image of education page](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/education%20page.PNG)
+
+Education results
+![image of education page results](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/education%20results.PNG)
