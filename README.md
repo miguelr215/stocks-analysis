@@ -3,8 +3,13 @@
 
 **Link to app:**  https://miguelr215.github.io/stocks-options/
 
-**Tech Used:**  HTML, CSS, JavaScript, JQuery
+**Tech Used:** 
+- HTML
+- CSS
+- JavaScript
+- JQuery
 
 **Screenshots:**
 
+Homepage
 
