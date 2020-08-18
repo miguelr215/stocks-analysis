@@ -11,9 +11,10 @@
     <header>
         <nav>
             <h1>Stock Analysis</h1>
-            <ul>
-                <li><a href="index.html">Search</a></li>
-                <li><a href="education.html">Education</a></li>
+            <ul class="navMenu">
+                <a href="#" class="navIcon" onclick="navMenu()"><ion-icon name="menu-outline"></ion-icon></a>
+                <li class="menuItem"><a href="index.html">Search</a></li>
+                <li class="menuItem"><a href="education.html">Education</a></li>
             </ul>
         </nav>
     </header>
@@ -21,7 +22,7 @@
         <div class="container">
             <div class="hero">
                 <div class="heroTextbox">
-                    <h2>Enter a company or symbol</h2>
+                    <h2>Enter a company or symbol to get stock & company news</h2>
                     <form autocomplete="off">
                         <input type="text" name="company" id="company" required>
                         <input type="submit" value="Submit" class="submitBtn js-submitBtn">
@@ -52,7 +53,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

@@ -54,15 +54,29 @@ function displayQuote(responseJson){
     $('.quoteBox').removeClass('hidden');
 };
 
+// function to create params string
+function formatQueryParams(params) {
+    const queryItems = Object.keys(params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    return queryItems.join('&');
+};
+
 // function to getCompany
 function getQuote(symbol){
-    let hostURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-    let url = '';
-    url = hostURL + symbol + '&apikey=' + apiKeyStocks;
+    const params = {
+        function: 'GLOBAL_QUOTE',
+        symbol: symbol,
+        apikey: apiKeyStocks
+    };
+    // let searchURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
+    let searchURL = 'https://www.alphavantage.co/';
+    const queryString = formatQueryParams(params);
+    const url = searchURL + 'query?' + queryString;
 
     fetch(url)
         .then(response => {
-            if(response.status === 200){
+            // if(response.status === 200){
+            if(response.ok){
                 return response;
             } else {
                 throw 'Error with response (in getQuote function)';
@@ -142,13 +156,19 @@ function displayCompany(responseJson){
 
 // function to getFinancials
 function getCompany(symbol){
-    let hostURL = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=';
-    let url = '';
-    url = hostURL + symbol +'&apikey=' + apiKeyStocks;
+    const params = {
+        function: 'OVERVIEW',
+        symbol: symbol,
+        apikey: apiKeyStocks
+    };
+    // let searchURL = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=';
+    let searchURL = 'https://www.alphavantage.co/';
+    const queryString = formatQueryParams(params);
+    const url = searchURL + 'query?' + queryString;
 
     fetch(url)
         .then(response => {
-            if(response.status === 200){
+            if(response.ok){
                 return response;
             } else {
                 throw 'Error with response (in getQuote function)';
@@ -181,8 +201,16 @@ function displayNews(responseJson){
 
 // function to getNews
 function getNews(company){
-    let hostURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?autoCorrect=false&pageNumber=1&pageSize=25&q=';
-    let url = '';
+    const params = {
+        autoCorrect: false,
+        pageNumber: 1,
+        pageSize: 25,
+        safeSearch: false,
+        q: company
+    };
+    // let hostURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?autoCorrect=false&pageNumber=1&pageSize=25&q=';
+    const searchURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/';
+    const queryString = formatQueryParams(params);
     let myHeaders = new Headers();
     myHeaders.append("x-rapidapi-host", "contextualwebsearch-websearch-v1.p.rapidapi.com");
     myHeaders.append("x-rapidapi-key", "e7a6c4e25amsh6520ffbc8ffad26p10cd43jsnc4253ca2ded9");
@@ -193,11 +221,11 @@ function getNews(company){
     redirect: 'follow'
     };
 
-    url = hostURL + company + '&safeSearch=false';
+    const url = searchURL + 'NewsSearchAPI?' + queryString;
 
     fetch(url, requestOptions)
         .then(response => {
-            if(response.status === 200){
+            if(response.ok){
                 return response;
             } else {
                 throw 'Error with response (in getQuote function)';
@@ -242,13 +270,19 @@ function displayMatchingCompanies(responseJson){
 
 // function to search companies from user input data
 function searchCompanies(company){
-    let url = '';
-    let hostURL = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
-    url = hostURL + company + '&apikey=' + apiKeyStocks;
+    const params = {
+        function: 'SYMBOL_SEARCH',
+        keywords: company,
+        apikey: apiKeyStocks
+    };
+    // let searchURL = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
+    const searchURL = 'https://www.alphavantage.co/';
+    const queryString = formatQueryParams(params);
+    const url = searchURL + 'query?' + queryString;
 
     fetch(url)
         .then(response => {
-            if(response.status === 200){
+            if(response.ok){
                 return response;
             } else {
                 throw 'Error with response (in getQuote function)';
@@ -285,13 +319,6 @@ function displayVideos(responseJson){
     $('.videosBox').removeClass('hidden');
 };
 
-// function to create params string
-function formatQueryParams(params) {
-    const queryItems = Object.keys(params)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    return queryItems.join('&');
-};
-
 // function to getVideos
 function getVideos(securityToSearch, educationLevel, maxResults=20){
     const apiKeyYouTube = 'AIzaSyA_r1qBpoPFoPc9IH-nxydP7COTXf1rRzI'; 
@@ -308,12 +335,9 @@ function getVideos(securityToSearch, educationLevel, maxResults=20){
       const queryString = formatQueryParams(params);
       const url = searchYTURL + '?' + queryString;
 
-    console.log(url);
     fetch(url)
-        
         .then(response => {
-            console.log(response)
-            if(response.status === 200){
+            if(response.ok){
                 return response;
             } else {
                 throw 'Error with response (in getQuote function)';
@@ -334,6 +358,18 @@ function watchEduForm(){
     });
 };
 
+// function for navMenu
+function navMenu(){
+    $('.navMenu').on('click', '.navIcon', function(event){
+        if($('.navMenu').attr('class') === 'navMenu'){
+            $('.navMenu').addClass('responsive');
+        } else {
+            $('.navMenu').removeClass('responsive');
+        }
+    })
+}
+
 $(selectedCompany());
 $(watchForm());
 $(watchEduForm());
+$(navMenu());

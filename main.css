@@ -28,10 +28,16 @@ header nav {
     justify-content: space-between;
 }
 
-header nav ul li {
-    display: inline-block;
+.navIcon {
+    color: #000000;
+    font-size: 250%;
+    margin: 20px;
+}
+
+header nav ul li.menuItem {
     font-size: 20px;
     margin: 23px 15px;
+    display: none;
 }
 
 header h1 {
@@ -49,25 +55,51 @@ header nav ul li a:active {
     color: #E6941E;
 }
 
+/* header nav ul.responsive {
+    position: relative;
+}
+
+header nav ul.responsive a.navIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+} */
+
+header nav ul.responsive li.menuItem,
+header nav ul.responsive li {
+    display: block;
+}
+
+
 /******* HEADER *******/
 
 .hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(images/4010978.jpg);
-    height: 80vh;
+    height: 75vh;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
 
 .heroTextbox {
-    position: relative;
-    top: 250px;
-    left: 50px;
+    margin: 5px auto 0 auto;
+    padding-top: 150px;
+    width: 350px;
+    text-align: center;
 }
 
 .heroTextbox h2 {
     color: #ffffff;
     margin-bottom: 7px;
+    width: 340px;
+    text-align: center;
+}
+
+#company {
+    display: inline-block;
+    margin: 3px;
+    width: 225px;
+    padding: 2px;
 }
 
 .submitBtn, 
@@ -93,15 +125,11 @@ header nav ul li a:active {
 
 /******* HOME PAGE *******/
 
-#company,
 #autocompleteDiv,
 #autocompleteHeader {
+    display: inline-block;
     width: 300px;
     padding: 2px;
-}
-
-#autocompleteDiv {
-    display: inline-block;
 }
 
 .autocompleteList a {
@@ -185,17 +213,27 @@ header nav ul li a:active {
 
 /******* EDUCATION PAGE *******/
 .eduHero {
+    /* background-image: linear-gradient(rgba(250, 250, 250, 0.45), rgba(250, 250, 250, 0.45)), url(images/education-header.jpg); */
     background-image: url(images/education-header.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    height: 100vh;
+    height: 75vh;
+}
+
+.whatToLearnContainer {
+    padding: 130px 5px 5px 5px;
+    text-align: center;
 }
 
 .whatToLearnBox {
     margin: 10px auto;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* background-color: #ffffff; */
+    border-radius: 10px;
+    width: 80%;
 }
 
 .whatToLearnBox form {
@@ -243,9 +281,25 @@ header nav ul li a:active {
 
 @media all and (min-width: 700px){
 
+    .navIcon {
+        display: none;
+    }
+
+    header nav ul li,
+    header nav ul li.menuItem, 
+    header nav ul.responsive li.menuItem {
+        display: inline-block;
+        font-size: 20px;
+        margin: 23px 15px;
+    }
+
     /******* EDUCATION PAGE *******/
     .videoList,
     #newsList {
         flex-direction: row;
+    }
+
+    .whatToLearnBox {
+        width: 50%;
     }
 }

@@ -10,39 +10,43 @@
 <body>
     <header>
         <nav>
-            <h1>Investing Education</h1>
-            <ul>
-                <li><a href="index.html">Search</a></li>
-                <li><a href="education.html">Education</a></li>
+            <h1>Stock Analysis</h1>
+            <ul class="navMenu">
+                <a href="#" class="navIcon" onclick="navMenu()"><ion-icon name="menu-outline"></ion-icon></a>
+                <li class="menuItem"><a href="index.html">Search</a></li>
+                <li class="menuItem"><a href="education.html">Education</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="container">
-            <div class="eduHero">    
+            <div class="eduHero">
+                <div class="whatToLearnContainer">
+                    <div class="whatToLearnBox">
+                        <h2>Learn about Investing in Stocks & Options </h2>
+                        <h3>Make Your Selections</h3>
+                        <form id="eduForm">
+                            <p>
+                                <label for="security">What would you like to learn?</label>
+                                <select name="security" id="security" required>
+                                    <option value="stocks">Learn about Stocks</option>
+                                    <option value="options">Learn about Options</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="educationLevel">Level of Difficulty</label>
+                                <select name="educationLevel" id="educationLevel" required>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </p>
+                            <input type="submit" value="Search" class="searchBtn js-searchBtn">
+                        </form>
+                    </div>
+                </div>
             </div>
             <p class="attribution">Designed by <a href="www.freepik.com">Freepik</a></p>
-            <div class="whatToLearnBox">
-                <h2>Learn about Investing in Stocks & Options </h2>
-                <h3>Make Your Selections</h3>
-                <form id="eduForm">
-                    <p>
-                        <label for="security">What would you like to learn?</label>
-                        <select name="security" id="security" required>
-                            <option value="stocks">Learn about Stocks</option>
-                            <option value="options">Learn about Options</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="educationLevel">Level of Difficulty</label>
-                        <select name="educationLevel" id="educationLevel" required>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Advanced">Advanced</option>
-                        </select>
-                    </p>
-                    <input type="submit" value="Search" class="searchBtn js-searchBtn">
-                </form>
-            </div>
+            
 
             <div class="videosBox hidden">
                 <h2>Search Results:</h2>
@@ -55,6 +59,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
