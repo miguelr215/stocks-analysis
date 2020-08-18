@@ -21,7 +21,7 @@ Company news articles results
 ![image of company news articles](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company%20news.png)
 
 Education page
-![image of education page](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/education%20page.PNG)
+![image of education page](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/education%20page2.PNG)
 
 Education results
 ![image of education page results](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/education%20results.PNG)
