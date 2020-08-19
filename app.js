@@ -10,7 +10,11 @@ const apiKeyStocks = 'JKU1DI2LG0JQH6O2';
 
 // function to format numbers with commas and currency
 function formatNumber(num) {
-    return '$' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    if(num){
+      return '$' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');  
+    } else {
+        return '-';
+    };
 };
 
 // function to determinePriceColor
@@ -52,6 +56,9 @@ function displayQuote(responseJson){
     `;
     $('.quoteBox').html(finalString);
     $('.quoteBox').removeClass('hidden');
+
+    let startScroll = document.getElementById('quoteContainer');
+    startScroll.scrollIntoView();
 };
 
 // function to create params string
@@ -298,7 +305,13 @@ function watchForm(){
     $('form').on('click', '.js-submitBtn', function(event){
         event.preventDefault();
         let company = $('#company').val();
-        searchCompanies(company);        
+        if(company && company.length > 0 && company.trim().length > 0){
+            $('.js-errorMsg').empty();
+            searchCompanies(company);
+        } else {
+            $('.js-errorMsg').html('Please enter a company or symbol to research');
+        };
+                
     });
 };
 
@@ -317,6 +330,9 @@ function displayVideos(responseJson){
           </li>`
         )};
     $('.videosBox').removeClass('hidden');
+
+    let startScroll = document.getElementById('js-results');
+    startScroll.scrollIntoView();
 };
 
 // function to getVideos
@@ -334,7 +350,7 @@ function getVideos(securityToSearch, educationLevel, maxResults=20){
       };
       const queryString = formatQueryParams(params);
       const url = searchYTURL + '?' + queryString;
-
+      console.log(url);
     fetch(url)
         .then(response => {
             if(response.ok){
@@ -360,12 +376,12 @@ function watchEduForm(){
 
 // function for navMenu
 function navMenu(){
-    $('.navMenu').on('click', '.navIcon', function(event){
-        if($('.navMenu').attr('class') === 'navMenu'){
-            $('.navMenu').addClass('responsive');
-        } else {
-            $('.navMenu').removeClass('responsive');
-        }
+    $('.navIcon').click(function(event){
+      if($('.navMenu').hasClass('responsive')){
+        $('.navMenu').removeClass('responsive');
+      } else {
+        $('.navMenu').addClass('responsive');
+      }  
     })
 }
 
