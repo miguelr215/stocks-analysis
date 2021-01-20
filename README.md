@@ -7,7 +7,7 @@
 - HTML
 - CSS
 - JavaScript
-- JQuery
+- jQuery
 
 **Screenshots:**
 
