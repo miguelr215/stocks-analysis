@@ -1,5 +1,6 @@
 # Stocks Analysis
-**Summary:**  This application allows the user to search for news articles, business and stock information on a specific company.  Users can also search YouTube videos to learn how to trade stocks and options.
+**Summary:**  This application allows the user to search for news articles, business and stock information on a specific company.  Users can also search YouTube videos to learn how to trade stocks and options. 
+**Please Note:** Free API only allows 1 search every 60 seconds
 
 **Link to app:**  https://miguelr215.github.io/stocks-analysis/
 
