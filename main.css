@@ -89,6 +89,12 @@ header nav ul.responsive li {
     text-align: center;
 }
 
+.heroTextbox p {
+    color: #ffff00;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
 #company {
     display: inline-block;
     margin: 3px;

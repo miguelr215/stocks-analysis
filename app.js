@@ -252,6 +252,7 @@ function selectedCompany(){
         getQuote(selectedCompany);
         
         $('.autocompleteList').empty();
+        $('#autocompleteHeader').empty();
         $('#autocompleteHeader').addClass('hidden');
         $('#autocompleteDiv').addClass('hidden');
         $('#autocompleteHeader').removeClass('auto-bg-color');
@@ -267,7 +268,7 @@ function displayMatchingCompanies(responseJson){
     $('#autocompleteDiv').removeClass('hidden');
     $('#autocompleteHeader').addClass('auto-bg-color');
     $('#autocompleteDiv').addClass('auto-bg-color');
-    $(' #autocompleteHeader').html('Select a Company:');
+    $('#autocompleteHeader').html('Select a Company:');
     
     for(let i = 0; i < responseJson.bestMatches.length; i++){
         $('.autocompleteList').append(`
