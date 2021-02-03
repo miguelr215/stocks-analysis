@@ -94,6 +94,47 @@ function getQuote(symbol){
         .catch(error => alert(`Error Message2: ${error.message}`));
 };
 
+// function to getNews
+function getNews(company){
+    console.log(company);
+    const params = {
+        autoCorrect: true,
+        pageNumber: 1,
+        pageSize: 25,
+        q: company
+    };
+    // let hostURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?autoCorrect=false&pageNumber=1&pageSize=25&q=';
+    const searchURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/';
+    const queryString = formatQueryParams(params);
+    // let myHeaders = new Headers();
+    // myHeaders.append("x-rapidapi-host", "contextualwebsearch-websearch-v1.p.rapidapi.com");
+    // myHeaders.append("x-rapidapi-key", "e7a6c4e25amsh6520ffbc8ffad26p10cd43jsnc4253ca2ded9");
+
+    let requestOptions = {
+    method: 'GET',
+    headers: {
+        "x-rapidapi-key": "e7a6c4e25amsh6520ffbc8ffad26p10cd43jsnc4253ca2ded9",
+        "x-rapidapi-host": "contextualwebsearch-websearch-v1.p.rapidapi.com"
+    },
+    redirect: 'follow'
+    };
+
+    const url = searchURL + 'NewsSearchAPI?' + queryString;
+    console.log(url);
+
+    fetch(url, requestOptions)
+        .then(response => {
+            if(response.ok){
+                return response;
+            } else {
+                throw 'Error with response (in getQuote function)';
+            }
+        })
+        .then(response => response.json())
+        .then(responseJson => displayNews(responseJson))
+        .catch(error => alert(`Error Message4: ${error.message}`));
+};
+
 // function to getFinancialResults
 function displayCompany(responseJson){
     $('.resultsBox').empty();
@@ -204,43 +245,6 @@ function displayNews(responseJson){
             '<li class="newsItem"><img src="'+ newsImage +'" alt="placeholder" width="200px"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a></li>');
     };
     $('.newsBox').removeClass('hidden');
-};
-
-// function to getNews
-function getNews(company){
-    const params = {
-        autoCorrect: false,
-        pageNumber: 1,
-        pageSize: 25,
-        safeSearch: false,
-        q: company
-    };
-    // let hostURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?autoCorrect=false&pageNumber=1&pageSize=25&q=';
-    const searchURL = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/';
-    const queryString = formatQueryParams(params);
-    let myHeaders = new Headers();
-    myHeaders.append("x-rapidapi-host", "contextualwebsearch-websearch-v1.p.rapidapi.com");
-    myHeaders.append("x-rapidapi-key", "e7a6c4e25amsh6520ffbc8ffad26p10cd43jsnc4253ca2ded9");
-
-    let requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-    };
-
-    const url = searchURL + 'NewsSearchAPI?' + queryString;
-
-    fetch(url, requestOptions)
-        .then(response => {
-            if(response.ok){
-                return response;
-            } else {
-                throw 'Error with response (in getQuote function)';
-            }
-        })
-        .then(response => response.json())
-        .then(responseJson => displayNews(responseJson))
-        .catch(error => alert(`Error Message4: ${error.message}`));
 };
 
 // function to listen for which matching company was selected
