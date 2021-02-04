@@ -173,6 +173,10 @@ header nav ul.responsive li {
     color: #bb0404;
 }
 
+.newsContainer {
+    padding: 10px;
+}
+
 .resultsBox {
     padding: 0 10px;
     margin: 10px auto;

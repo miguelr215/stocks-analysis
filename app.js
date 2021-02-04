@@ -94,9 +94,29 @@ function getQuote(symbol){
         .catch(error => alert(`Error Message2: ${error.message}`));
 };
 
+// function to displayNews
+function displayNews(responseJson){
+    console.log(responseJson);
+    $('#newsList').empty();
+    for(let i = 0; i < responseJson.value.length || i === 24; i++){
+        let title = responseJson.value[i].title;
+        let url = responseJson.value[i].url;
+        let newsImage = 'news.png';
+
+        // if(responseJson.value[i].image.thumbnail){
+        //     newsImage = responseJson.value[i].image.thumbnail;
+        // } else {
+        //     newsImage = 'temp-placeholder.png';
+        // };
+        
+        $('#newsList').append(
+            '<li class="newsItem"><img src="'+ newsImage +'" alt="placeholder" width="200px"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a></li>');
+    };
+    $('.newsBox').removeClass('hidden');
+};
+
 // function to getNews
 function getNews(company){
-    console.log(company);
     const params = {
         autoCorrect: true,
         pageNumber: 1,
@@ -120,7 +140,6 @@ function getNews(company){
     };
 
     const url = searchURL + 'NewsSearchAPI?' + queryString;
-    console.log(url);
 
     fetch(url, requestOptions)
         .then(response => {
@@ -225,26 +244,6 @@ function getCompany(symbol){
         .then(response => response.json())
         .then(responseJson => displayCompany(responseJson))
         .catch(error => alert(`Error Message3: ${error.message}`));
-};
-
-// function to displayNews
-function displayNews(responseJson){
-    $('#newsList').empty();
-    for(let i = 0; i < responseJson.value.length || i === 24; i++){
-        let title = responseJson.value[i].title;
-        let url = responseJson.value[i].url;
-        let newsImage = '';
-
-        if(responseJson.value[i].image.thumbnail){
-            newsImage = responseJson.value[i].image.thumbnail;
-        } else {
-            newsImage = 'temp-placeholder.png';
-        };
-        
-        $('#newsList').append(
-            '<li class="newsItem"><img src="'+ newsImage +'" alt="placeholder" width="200px"><a href="'+ url +'" target="_blank"><h3>'+ title +'</h3></a></li>');
-    };
-    $('.newsBox').removeClass('hidden');
 };
 
 // function to listen for which matching company was selected
