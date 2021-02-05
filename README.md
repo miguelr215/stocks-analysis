@@ -16,10 +16,10 @@ Homepage
 ![image of stocks analysis homepage](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/homepage1.PNG)
 
 Company information & stock quotes results
-![image of company and stock info](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company%20info1.PNG)
+![image of company and stock info](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company-info1.PNG)
 
 Company news articles results
-![image of company news articles](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company%20news1.png)
+![image of company news articles](https://github.com/miguelr215/stocks-analysis/blob/master/screenshots/company-news1.png)
 
 Education page
 ![image of education page](https://github.com/miguelr215/stocks-analysis/blob/master/education-page2.PNG)
