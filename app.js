@@ -342,8 +342,6 @@ function displayVideos(responseJson){
 // function to getVideos
 function getVideos(securityToSearch, educationLevel, maxResults=20){
     const apiKeyYouTube = 'AIzaSyA_r1qBpoPFoPc9IH-nxydP7COTXf1rRzI'; 
-    // YouTube api key1 AIzaSyCINHocuz-1yn4g-Bx0xlyQ_gIgBYyBltQ
-    // YouTube api key2 AIzaSyA_r1qBpoPFoPc9IH-nxydP7COTXf1rRzI
     const searchYTURL = 'https://www.googleapis.com/youtube/v3/search';
     const params = {
         key: apiKeyYouTube,
