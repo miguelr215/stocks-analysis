@@ -91,7 +91,7 @@ function getQuote(symbol){
         })
         .then(response => response.json())
         .then(responseJson => displayQuote(responseJson))
-        .catch(error => alert(`Error Message2: ${error.message}`));
+        .catch(error => alert(`Error Message2: ${error.message} - REQUEST LIMIT REACHED - PLEASE ALLOW 60 SECONDS BEFORE NEXT SEARCH`));
 };
 
 // function to displayNews
@@ -243,7 +243,7 @@ function getCompany(symbol){
         })
         .then(response => response.json())
         .then(responseJson => displayCompany(responseJson))
-        .catch(error => alert(`Error Message3: ${error.message}`));
+        .catch(error => alert(`Error Message3: ${error.message} - REQUEST LIMIT REACHED - PLEASE ALLOW 60 SECONDS BEFORE NEXT SEARCH`));
 };
 
 // function to listen for which matching company was selected
@@ -301,7 +301,7 @@ function searchCompanies(company){
         })
         .then(response => response.json())
         .then(responseJson => displayMatchingCompanies(responseJson))
-        .catch(error => alert(`Error Message1: ${error.message}`));
+        .catch(error => alert(`Error Message1: ${error.message} - REQUEST LIMIT REACHED - PLEASE ALLOW 60 SECONDS BEFORE NEXT SEARCH`));
 };
 
 // function to watchForm 
