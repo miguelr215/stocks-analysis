@@ -329,7 +329,7 @@ function displayVideos(responseJson){
     
     for (let i = 0; i < responseJson.items.length; i++){
         $('.videoList').append(
-          `<li class="videoItem"><img src="${responseJson.items[i].snippet.thumbnails.default.url}" width="200px"><a href="www.youtube.com/watch?v=${responseJson.items[i].id.videoId}" target="_blank"><h3>${responseJson.items[i].snippet.title}</h3></a>
+          `<li class="videoItem"><img src="${responseJson.items[i].snippet.thumbnails.default.url}" width="200px"><a href="http://www.youtube.com/watch?v=${responseJson.items[i].id.videoId}" target="_blank"><h3>${responseJson.items[i].snippet.title}</h3></a>
           <p>${responseJson.items[i].snippet.description}</p>
           </li>`
         )};
