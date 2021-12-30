@@ -1,60 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stocks & Options</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
     <header>
-        <nav>
-            <h1>Stock Analysis</h1>
-            <ul class="navMenu">
-                <li class="hamburgerMenu"><a href="#" class="navIcon"><ion-icon name="menu-outline"></ion-icon></a></li>
-                <li class="menuItem"><a href="index.html">Search</a></li>
-                <li class="menuItem"><a href="education.html">Education</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <h1>Stock Analysis</h1>
+        <ul class="navMenu">
+          <li class="hamburgerMenu">
+            <a href="#" class="navIcon"
+              ><ion-icon name="menu-outline"></ion-icon
+            ></a>
+          </li>
+          <li class="menuItem"><a href="index.html">Search</a></li>
+          <li class="menuItem"><a href="education.html">Education</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <div class="container">
-            <div class="hero">
-                <div class="heroTextbox">
-                    <h2>Enter a company or symbol to get stock & company news</h2>
-                    <!-- <p>Please Note:  Free API allows 1 search every 60 seconds</p> -->
-                    <form autocomplete="off">
-                        <input type="text" name="company" id="company" required>
-                        <input type="submit" value="Submit" class="submitBtn js-submitBtn">
-                        <div class="js-errorMsg"></div>
-                        <h4 id="autocompleteHeader" class="hidden"></h4>
-                        <div id="autocompleteDiv" class="hidden autocomplete">
-                            <ul class="autocompleteList"></ul>
-                        </div>
-                    </form>
-                </div>    
+      <div class="container">
+        <div class="hero">
+          <div class="heroTextbox">
+            <h2>Enter a company or symbol to get stock & company news</h2>
+            <!-- <p>Please Note:  Free API allows 1 search every 60 seconds</p> -->
+            <form autocomplete="off">
+              <input
+                type="text"
+                name="company"
+                id="company"
+                placeholder="Find a company"
+                aria-label="company name or ticker symbol"
+                required
+              />
+              <input
+                type="submit"
+                value="Submit"
+                class="submitBtn js-submitBtn"
+                aria-label="submit button"
+              />
+              <div class="js-errorMsg"></div>
+              <h4 id="autocompleteHeader" class="hidden"></h4>
+              <div id="autocompleteDiv" class="hidden autocomplete">
+                <ul class="autocompleteList"></ul>
+              </div>
+            </form>
+          </div>
+        </div>
+        <p class="attribution">
+          Designed by <a href="www.freepik.com">Freepik</a>
+        </p>
+        <section>
+          <div id="quoteContainer">
+            <div><h3 class="resultsHeader hidden"></h3></div>
+            <div class="quoteBox hidden"></div>
+          </div>
+          <div class="resultsBox hidden"></div>
+          <div class="newsContainer">
+            <h3 class="resultsHeader hidden"></h3>
+            <div class="newsBox hidden">
+              <ul id="newsList"></ul>
             </div>
-            <p class="attribution">Designed by <a href="www.freepik.com">Freepik</a></p>
-            <section>
-                <div id="quoteContainer">
-                    <div><h3 class="resultsHeader hidden"></h3></div>
-                    <div class="quoteBox hidden"></div>   
-                </div>
-                <div class="resultsBox hidden"></div>
-                <div class="newsContainer">
-                    <h3 class="resultsHeader hidden"> </h3>
-                    <div class="newsBox hidden">
-                        <ul id="newsList">
-                        </ul>
-                    </div> <!--end of newsBox-->
-                </div> <!--end of newsContainer-->
-            </section>
-        </div> <!--end of container-->
+            <!--end of newsBox-->
+          </div>
+          <!--end of newsContainer-->
+        </section>
+      </div>
+      <!--end of container-->
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
